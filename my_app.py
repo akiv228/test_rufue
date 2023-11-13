@@ -1,12 +1,11 @@
-# напиши здесь код основного приложения и первого экрана
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication, QPushButton, QWidget, QLabel, 
 QVBoxLayout, QHBoxLayout)
 from PyQt5.QtGui import QFont, QIcon, QPixmap
 
-# https://github.com/algogrodno/pygame_star_aliens.git
-from instr import *
-from second_win import *
+from config import *
+from instruc import *
+from acquaintance import *
 
 
 class MainWindow(QWidget):
@@ -23,26 +22,24 @@ class MainWindow(QWidget):
         self.move(win_x, win_y)
         self.setStyleSheet("background-color: rgb(255, 255, 122);")
         icon = QIcon()
-        icon.addPixmap(QPixmap("health2.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("images/health2.png"), QIcon.Normal, QIcon.Off)
         self.setWindowIcon(icon)
+        self.setMaximumSize(win_width, win_height)
+        
 
     def initUI(self):
+        self.label = QLabel(self)
+        self.label.setPixmap(QPixmap("images/phone2.png").scaledToHeight(410))
+        
         self.welcome = QLabel(txt_welcome)
-        self.welcome.setFont(QFont("Times", 18, QFont.Bold))
-        self.description = QLabel(txt_description)
-        self.description.setFont(QFont("Times", 12))
+        self.welcome.setFont(QFont("Times", 20, QFont.Bold))
+        
         self.but_start = QPushButton(txt_but_start)
-        self.but_start.setStyleSheet("\n"
-"font: 75 60pt \"Candara\";\n"
-"color: rgb(248, 0, 0);\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"border-radius: 40;")
+        self.but_start.setStyleSheet("font: 60pt \"Candara\"; color: rgb(248, 0, 0); border-radius: 40;")
+        
         self.layout = QVBoxLayout() 
-        self.layout.addWidget(self.welcome, alignment = Qt.AlignLeft)
-        self.layout.addWidget(self.description, alignment = Qt.AlignLeft)
+        self.layout.addWidget(self.welcome, alignment = Qt.AlignCenter)
+        self.layout.addWidget(self.label, alignment = Qt.AlignCenter)
         self.layout.addWidget(self.but_start, alignment = Qt.AlignCenter)
         self.setLayout(self.layout)
 
@@ -51,7 +48,8 @@ class MainWindow(QWidget):
         
     def next_click(self):
         self.hide()
-        self.tw = TestWin()
+        # self.tw = Acquaintance()
+        self.tw = Manual()
 
 
 app = QApplication([])
